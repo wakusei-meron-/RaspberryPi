@@ -2,7 +2,7 @@ var net = require('net');
 var readline = require('readline');
 
 //自作モジュール
-var child = require('./exec.js');
+var child = require('./nodeCommand.js');
 
 var server = net.createServer();
 //TCPクライアント接続の最大数
@@ -46,14 +46,7 @@ server.on('connection', function(socket){
 	    clients[key].writeData(data);
 
 	    data = data.replace(/[\s]/g,"");//空白除去
-	    switch(data){
-	    case "son":
-		child.switchOn(data);
-		break;
-	    case "soff":
-		child.switchOff(data);
-		break;		
-	    };
+	    child.judgeComand(data);
 	    data = '';
 	    
 	}
